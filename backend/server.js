@@ -1,9 +1,9 @@
+const Project = require("./models/project");
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-const Project = require("./models/Project");
 
 const app = express();
 
