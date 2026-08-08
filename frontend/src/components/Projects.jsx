@@ -1,24 +1,39 @@
+import { useEffect, useState } from "react";
 import "./Projects.css";
 
 function Projects() {
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("https://personal-portfolio-ddxo.onrender.com/projects")
+      .then((response) => response.json())
+      .then((data) => {
+        setProjects(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching projects:", error);
+        setLoading(false);
+      });
+  }, []);
+
   return (
-    <section className="projects" id="projects">
+    <section id="projects">
       <h2>My Projects</h2>
 
-      <div className="project-card">
-        <h3>Personal Portfolio</h3>
-        <p>A responsive portfolio website built using React.</p>
-      </div>
-
-      <div className="project-card">
-        <h3>Student Management System</h3>
-        <p>A Java application for managing student records.</p>
-      </div>
-
-      <div className="project-card">
-        <h3>Weather App</h3>
-        <p>A React app that displays live weather information.</p>
-      </div>
+      {loading ? (
+        <p>Loading projects...</p>
+      ) : projects.length === 0 ? (
+        <p>No projects found.</p>
+      ) : (
+        projects.map((project) => (
+          <div className="project-card" key={project._id}>
+            <h3>{project.title}</h3>
+            <p>{project.description}</p>
+          </div>
+        ))
+      )}
     </section>
   );
 }
