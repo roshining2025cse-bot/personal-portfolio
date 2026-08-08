@@ -5,7 +5,7 @@ function Hero() {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5000/api")
+    fetch("https://personal-portfolio-ddxo.onrender.com/api")
       .then((res) => res.json())
       .then((data) => setMessage(data.message))
       .catch((error) => console.log(error));
